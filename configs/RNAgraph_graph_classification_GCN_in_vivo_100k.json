@@ -1,0 +1,38 @@
+{
+    "gpu": {
+        "use": true,
+        "id": 0
+    },
+    
+    "model": "GCN",
+    "dataset": "MNIST",
+    "debias": "False",
+    "motif": "False",
+    "best_epoch": 0, 
+    "out_dir": "out/superpixels_graph_classification/",
+    
+    "params": {
+        "seed": 39,
+        "epochs": 100,
+        "batch_size": 128,
+        "init_lr": 0.001,
+        "lr_reduce_factor": 0.5,
+        "lr_schedule_patience": 10,
+        "min_lr": 1e-5,
+        "weight_decay": 0.01,
+        "print_epoch_interval": 5,
+        "max_time": 24
+    },
+    
+    "net_params": {
+        "L": 2,
+        "hidden_dim": 32,
+        "out_dim": 32,
+        "residual": true,
+        "readout": "mean",
+        "in_feat_dropout": 0.25,
+        "dropout": 0.25,
+        "batch_norm": true,
+        "self_loop": false
+    }
+}
