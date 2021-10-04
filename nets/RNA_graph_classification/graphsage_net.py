@@ -13,6 +13,7 @@ import dgl
 from layers.graphsage_layer import GraphSageLayer
 from layers.mlp_readout_layer import MLPReadout
 
+
 class GraphSageNet(nn.Module):
     """
     Grahpsage network with multiple GraphSageLayer layers
