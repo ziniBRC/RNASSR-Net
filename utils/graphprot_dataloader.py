@@ -33,7 +33,7 @@ def _initialize():
             all_rbps = set([dir.split('.')[0] for dir in os.listdir(clip_data_path)])
             path_template = os.path.join(basedir, 'Data', 'GraphProt_CLIP_sequences', '{}.{}.{}.fa')
             for rbp in all_rbps:
-                for split in ['train', 'ls']:
+                for split in ['train_utils', 'ls']:
                     for label in ['positives', 'negatives']:
                         dir_to = os.path.join(os.path.dirname(path_template), rbp, split, label)
                         if not os.path.exists(dir_to):
@@ -102,8 +102,8 @@ def load_clip_seq(rbp_list=None, p=None, **kwargs):
         path_template = os.path.join(basedir, 'Data', 'GraphProt_CLIP_sequences', '{}', '{}', '{}', 'data.fa')
         dataset = {}
 
-        pos_id, pos_seq = utils.rna_utils.load_seq(path_template.format(rbp, 'train', 'positives'))
-        neg_id, neg_seq = utils.rna_utils.load_seq(path_template.format(rbp, 'train', 'negatives'))
+        pos_id, pos_seq = utils.rna_utils.load_seq(path_template.format(rbp, 'train_utils', 'positives'))
+        neg_id, neg_seq = utils.rna_utils.load_seq(path_template.format(rbp, 'train_utils', 'negatives'))
         all_id = pos_id + neg_id
         all_seq = pos_seq + neg_seq
 
@@ -122,8 +122,8 @@ def load_clip_seq(rbp_list=None, p=None, **kwargs):
 
         if kwargs.get('modify_leaks', False):
             path_template = path_template[:-7] + 'modified_data.fa'
-            if not os.path.exists(path_template.format(rbp, 'train', 'positives')) or \
-                    not os.path.exists(path_template.format(rbp, 'train', 'negatives')):
+            if not os.path.exists(path_template.format(rbp, 'train_utils', 'positives')) or \
+                    not os.path.exists(path_template.format(rbp, 'train_utils', 'negatives')):
                 all_modified_seq = []
                 for seq, label in zip(all_seq, dataset['label']):
                     seq = list(seq)
@@ -159,16 +159,16 @@ def load_clip_seq(rbp_list=None, p=None, **kwargs):
                 neg_seq = all_seq[len(pos_id):]
 
                 # cache temporary modified files
-                with open(path_template.format(rbp, 'train', 'positives'), 'w') as file:
+                with open(path_template.format(rbp, 'train_utils', 'positives'), 'w') as file:
                     for id, seq in zip(pos_id, pos_seq):
                         file.write('%s\n%s\n' % (id, seq))
-                with open(path_template.format(rbp, 'train', 'negatives'), 'w') as file:
+                with open(path_template.format(rbp, 'train_utils', 'negatives'), 'w') as file:
                     for id, seq in zip(neg_id, neg_seq):
                         file.write('%s\n%s\n' % (id, seq))
                 print('modified sequences have been cached')
             else:
-                _, pos_seq = utils.rna_utils.load_seq(path_template.format(rbp, 'train', 'positives'))
-                _, neg_seq = utils.rna_utils.load_seq(path_template.format(rbp, 'train', 'negatives'))
+                _, pos_seq = utils.rna_utils.load_seq(path_template.format(rbp, 'train_utils', 'positives'))
+                _, neg_seq = utils.rna_utils.load_seq(path_template.format(rbp, 'train_utils', 'negatives'))
                 all_seq = pos_seq + neg_seq
 
         # in nucleotide format
@@ -176,9 +176,9 @@ def load_clip_seq(rbp_list=None, p=None, **kwargs):
 
         if load_mat:
             # load sparse matrices
-            pos_matrix = utils.rna_utils.load_mat(path_template.format(rbp, 'train', 'positives')
+            pos_matrix = utils.rna_utils.load_mat(path_template.format(rbp, 'train_utils', 'positives')
                                                 , pool, load_dense=False, **kwargs)
-            neg_matrix = utils.rna_utils.load_mat(path_template.format(rbp, 'train', 'negatives')
+            neg_matrix = utils.rna_utils.load_mat(path_template.format(rbp, 'train_utils', 'negatives')
                                                 , pool, load_dense=False, **kwargs)
             if probabilistic:
                 # we can do this simply because the secondary structure is not a multigraph
