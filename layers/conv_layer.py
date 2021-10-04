@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from dgl.nn import GraphConv
+from dgl.nn.pytorch.conv import GraphConv
 
 class ListReadoutLayer(nn.Module):
     """List Readout Layer"""
