@@ -41,6 +41,7 @@ dependencies:
 - scikit-image=0.15.0
 - requests==2.22.0
 - tqdm==4.43.0
+- viennarna-2.4.13
 - pip:
   - tensorflow-gpu==2.1.0
   - tensorflow-estimator==2.1.0

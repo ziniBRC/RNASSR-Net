@@ -20,11 +20,11 @@ else:
 if os.path.exists(path_template) is False:
     os.mkdir(path_template)
 path_template = os.path.join(path_template, DATASET_NAME + '.pkl')
-if os.path.exists(path_template) is True:
-    print(DATASET_NAME + '.pkl' + " already exists!")
-    exit()
-with open(path_template, 'wb') as f:
-    pickle.dump([], f)
+# if os.path.exists(path_template) is True:
+#     print(DATASET_NAME + '.pkl' + " already exists!")
+#     exit()
+# with open(path_template, 'wb') as f:
+#     pickle.dump([], f)
 
 dataset = RNAGraphDatasetDGL(DATASET_NAME, debias=debias)
 
